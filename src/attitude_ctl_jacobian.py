@@ -39,22 +39,22 @@ class AttitudeControl:
         ##################################################################
         # Add your PID params here
 
-        self.pid_roll.set_kp(0.004) # 0.001
-        self.pid_roll.set_ki(0.0)
-        self.pid_roll.set_kd(0.001)
+        self.pid_roll.set_kp(0.02) # 0.001
+        self.pid_roll.set_ki(0.08)
+        self.pid_roll.set_kd(0.0)
         self.pid_roll.set_dead_zone(0.0)
 
-        self.pid_pitch.set_kp(0.004)
-        self.pid_pitch.set_ki(0)
-        self.pid_pitch.set_kd(0.001)
+        self.pid_pitch.set_kp(0.02)
+        self.pid_pitch.set_ki(0.08)
+        self.pid_pitch.set_kd(0.0)
         self.pid_pitch.set_dead_zone(0.0)
 
-        self.joint0 = [0, -45, -60,
-                       0, -45, -60,
-                       0, -45, -60,
-                       0, -45, -60]
+        self.joint0 = [0, -45, -45,
+                       0, -45, -45,
+                       0, -45, -45,
+                       0, -45, -45]
 
-        self.joint_ref = self.joint0
+        self.joint_ref = copy.deepcopy(self.joint0)
         self.joint_msg = JointState();
 
         self.joint_pos = [0.0, 0.0, 0.0,
@@ -153,6 +153,11 @@ class AttitudeControl:
             self.joint_ref[6] = math.degrees(-self.du_ref[0,0]) + self.joint0[6]
             self.joint_ref[3] = math.degrees(self.du_ref[1,0]) + self.joint0[3]
             self.joint_ref[9] = math.degrees(-self.du_ref[1,0]) + self.joint0[9]
+
+            #self.joint_ref[2] = self.joint_ref[1]
+            #self.joint_ref[5] = self.joint_ref[4]
+            #self.joint_ref[8] = self.joint_ref[7]
+            #self.joint_ref[11] = self.joint_ref[10]
             
             self.joint_msg.header.stamp = rospy.Time.now()
             self.joint_msg.position = copy.deepcopy(self.joint_ref)

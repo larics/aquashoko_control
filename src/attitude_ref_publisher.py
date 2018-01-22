@@ -12,8 +12,8 @@ class ReferencePublisher(object):
         
         self.euler_ref_pub = rospy.Publisher('euler_ref', Vector3, queue_size=1)
         self.euler_ref_msg = Vector3()
-        self.pitch_ref = [0.0, 0.2, 0.0,-0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.0,-0.2, 0.0]
-        self.roll_ref =  [0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.0,-0.2, 0.0, 0.2, 0.0,-0.2, 0.0]
+        self.pitch_ref = [0.0, 0.2, 0.0, 0.0, 0.0, 0.2, 0.0]# 0.0, 0.2, 0.0,-0.2, 0.0]
+        self.roll_ref =  [0.0, 0.0, 0.0, -0.2, 0.0,-0.2, 0.0]#, 0.2, 0.0,-0.2, 0.0]
         self.counter = 0
 
     def run(self):
@@ -28,14 +28,16 @@ class ReferencePublisher(object):
 
         while not rospy.is_shutdown():
 
-            rospy.sleep(5.0)
+            rospy.sleep(10.0)
             self.euler_ref_msg.x = self.roll_ref[self.counter]
             self.euler_ref_msg.y = self.pitch_ref[self.counter]
             self.euler_ref_msg.z = 0
 
             self.euler_ref_pub.publish(self.euler_ref_msg)
-
             self.counter = (self.counter + 1 ) % len(self.pitch_ref)
+
+            if self.counter == 0:
+                return
 
 if __name__ == '__main__':
 

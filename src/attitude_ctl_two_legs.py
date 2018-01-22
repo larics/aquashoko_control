@@ -39,21 +39,21 @@ class AttitudeControl:
         ##################################################################
         # Add your PID params here
 
-        self.pid_roll.set_kp(0.1)
-        self.pid_roll.set_ki(0.0)
-        self.pid_roll.set_kd(0.025)
+        self.pid_roll.set_kp(2.0)
+        self.pid_roll.set_ki(0.5)
+        self.pid_roll.set_kd(0.0)
 
 
-        self.pid_pitch.set_kp(0.1)
-        self.pid_pitch.set_ki(0)
-        self.pid_pitch.set_kd(0.025)
+        self.pid_pitch.set_kp(2.0)
+        self.pid_pitch.set_ki(0.5)
+        self.pid_pitch.set_kd(0.0)
 
-        self.joint0 = [0, -45, -60,
-                       0, -45, -60,
-                       0, -45, -60,
-                       0, -45, -60]
+        self.joint0 = [0, -45, -45,
+                       0, -45, -45,
+                       0, -45, -45,
+                       0, -45, -45]
 
-        self.joint_ref = self.joint0
+        self.joint_ref = copy.deepcopy(self.joint0)
         self.joint_msg = JointState();
 
 
