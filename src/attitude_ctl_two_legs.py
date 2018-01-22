@@ -40,12 +40,12 @@ class AttitudeControl:
         # Add your PID params here
 
         self.pid_roll.set_kp(2.0)
-        self.pid_roll.set_ki(0.5)
+        self.pid_roll.set_ki(2.0)
         self.pid_roll.set_kd(0.0)
 
 
         self.pid_pitch.set_kp(2.0)
-        self.pid_pitch.set_ki(0.5)
+        self.pid_pitch.set_ki(2.0)
         self.pid_pitch.set_kd(0.0)
 
         self.joint0 = [0, -45, -45,
